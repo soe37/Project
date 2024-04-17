@@ -19,7 +19,6 @@ public class ImageGalleryScreen extends JFrame {
         JButton prevButton = new JButton("Previous");
         JButton nextButton = new JButton("Next");
 
-        // Image display label
         imageLabel = new JLabel();
         imageLabel.setHorizontalAlignment(SwingConstants.CENTER);
         imageLabel.setVerticalAlignment(SwingConstants.CENTER);
@@ -54,7 +53,7 @@ public class ImageGalleryScreen extends JFrame {
 
     private void displayImage(File file) {
         if (imageLabel.getWidth() == 0 || imageLabel.getHeight() == 0) {
-            return; // Skip if label size is not yet determined
+            return;
         }
     
         ImageIcon icon = new ImageIcon(file.getAbsolutePath());
@@ -63,12 +62,10 @@ public class ImageGalleryScreen extends JFrame {
         int imageWidth = icon.getIconWidth();
         int imageHeight = icon.getIconHeight();
     
-        // Calculate scaling factors to maintain aspect ratio
         double widthRatio = (double) labelWidth / imageWidth;
         double heightRatio = (double) labelHeight / imageHeight;
         double scaleFactor = Math.min(widthRatio, heightRatio);
     
-        // Scale the image
         int scaledWidth = (int) (scaleFactor * imageWidth);
         int scaledHeight = (int) (scaleFactor * imageHeight);
         Image image = icon.getImage().getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_SMOOTH);

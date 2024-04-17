@@ -129,7 +129,7 @@ public class HotelDB {
             statement.setInt(4, hotelOwnerId);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle error appropriately
+            e.printStackTrace();
         }
     }
     
@@ -162,7 +162,7 @@ public class HotelDB {
             statement.setInt(2, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle error appropriately
+            e.printStackTrace();
         }
     }
 
@@ -173,7 +173,7 @@ public class HotelDB {
             statement.setInt(2, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle error appropriately
+            e.printStackTrace();
         }
     }
 
@@ -184,7 +184,7 @@ public class HotelDB {
             statement.setInt(2, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle error appropriately
+            e.printStackTrace();
         }
     }
 }

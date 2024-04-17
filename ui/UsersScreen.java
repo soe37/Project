@@ -35,7 +35,7 @@ public class UsersScreen extends JFrame {
         int type = user.getType();
 
         Map<Integer, String>typeMap = new HashMap<>();
-        typeMap.put(0, "Customer"); // Map type IDs to type names
+        typeMap.put(0, "Customer");
         typeMap.put(1, "Hotel Owner");
         typeMap.put(2, "Webmaster");
 
@@ -58,10 +58,9 @@ public class UsersScreen extends JFrame {
         updateTypeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Define the options
+
                 Object[] options = { "Customer", "Hotel Owner", "Webmaster" };
 
-                // Prompt the user to select an option
                 int choice = JOptionPane.showOptionDialog(
                     UsersScreen.this,
                     "Choose new type for user " + user.getUsername(),
@@ -72,12 +71,11 @@ public class UsersScreen extends JFrame {
                     options,
                     options[0]);
 
-                // Handle the user's choice
-                if (choice >= 0) { // User selected an option
-                    // Update user type based on the choice
+
+                if (choice >= 0) {
                     int newType = choice;
                     Main.userController.updateUserType(user.getId(), newType);
-                    refreshPanel(); // Refresh the panel after updating
+                    refreshPanel();
                 }
             }
         });

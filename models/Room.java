@@ -25,7 +25,7 @@ public class Room {
         this.hotelId = hotelId;
     }
 
-    // Getter and setter methods for id, roomTypeId, and hotelId
+    
 
     public int getId() {
         return id;

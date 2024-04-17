@@ -36,10 +36,8 @@ public class HotelOwnerScreen extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == roomsButton) {
-            // Open HotelSearchScreen when "Find room" button is clicked
             new RoomsScreen(hotelId);
         } else if (e.getSource() == changeHotelInformationButton) {
-            // Open BookingHistoryScreen when "Booking history" button is clicked
             new HotelInformationScreen(hotelId);
         }
     }

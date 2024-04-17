@@ -6,7 +6,6 @@ public class RoomType {
     private int capacity;
     private int pricePerNight;
     private int hotelId;
-    // You can add more fields as needed
 
     @Override
     public boolean equals(Object o) {
@@ -21,7 +20,7 @@ public class RoomType {
         return Objects.hash(id);
     }
 
-    // Constructor
+
     public RoomType(int id, String name, int capacity, int pricePerNight, int hotelId) {
         this.id = id;
         this.name = name;
@@ -30,7 +29,7 @@ public class RoomType {
         this.hotelId = hotelId;
     }
 
-    // Getters and setters
+
     public int getId() {
         return id;
     }

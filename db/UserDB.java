@@ -12,7 +12,6 @@ public class UserDB {
         this.connection = connection;
     }
 
-    // Methods for accessing user data
 
     public List<User> getUsers() {
         List<User> users = new ArrayList<>();
@@ -29,7 +28,7 @@ public class UserDB {
                 users.add(new User(id, username, email, password, type));
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle error appropriately
+            e.printStackTrace();
         }
         return users;
     }
@@ -49,9 +48,9 @@ public class UserDB {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle error appropriately
+            e.printStackTrace();
         }
-        return null; // User not found
+        return null;
     }
 
     public boolean isUsernameTaken(String username) {
@@ -65,9 +64,9 @@ public class UserDB {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle error appropriately
+            e.printStackTrace();
         }
-        return false; // Error occurred or username not taken
+        return false;
     }
 
     public boolean isEmailTaken(String email) {
@@ -81,9 +80,9 @@ public class UserDB {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle error appropriately
+            e.printStackTrace();
         }
-        return false; // Error occurred or email not taken
+        return false;
     }
 
     public void saveUser(String username, String email, String password) {
@@ -94,7 +93,7 @@ public class UserDB {
             statement.setString(3, password);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle error appropriately
+            e.printStackTrace();
         }
     }
 
@@ -104,7 +103,7 @@ public class UserDB {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle error appropriately
+            e.printStackTrace();
         }
     }
 
@@ -115,7 +114,7 @@ public class UserDB {
             statement.setInt(2, userId);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle error appropriately
+            e.printStackTrace();
         }
     }
 }

@@ -16,7 +16,7 @@ public class HotelSearchScreen extends JFrame {
 
     public HotelSearchScreen() {
         setTitle("Hotel Search Screen");
-        setSize(600, 400); // Increased size for better visibility
+        setSize(600, 400);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
@@ -108,7 +108,6 @@ public class HotelSearchScreen extends JFrame {
 
             resultsPanel.removeAll();
 
-            // Add the results to the resultsPanel
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.gridx = 0;
             gbc.gridy = 0;
@@ -119,42 +118,35 @@ public class HotelSearchScreen extends JFrame {
 
                 JButton viewPhotosButton = new JButton("View photos");
                 viewPhotosButton.addActionListener(event -> {
-                    // Handle selection logic here
                     ImageGalleryScreen galleryScreen = new ImageGalleryScreen();
                     galleryScreen.setVisible(true);
 
-                    int hotelId = hotel.getId(); // Assuming hotel is an instance of Hotel class
-                    File directory = new File("photos\\hotel\\" + hotelId); // Adjust the relative path as needed
+                    int hotelId = hotel.getId();
+                    File directory = new File("photos\\hotel\\" + hotelId);
                     galleryScreen.showImagesInFolder(directory);
                 });
 
                 JButton selectButton = new JButton("Select");
                 selectButton.addActionListener(event -> {
-                    // Handle selection logic here
-                    System.out.println("Hotel selected: " + hotel.getName());
-
                     new RoomSearchScreen(hotel.getId());
                 });
                 
-                // Create a new panel for each hotel
                 JPanel hotelPanel = new JPanel(new GridBagLayout());
                 GridBagConstraints hotelPanelGbc = new GridBagConstraints();
                 hotelPanelGbc.gridx = 0;
                 hotelPanelGbc.gridy = 0;
                 hotelPanel.add(label, hotelPanelGbc);
                 hotelPanelGbc.gridx++;
-                hotelPanel.add(Box.createHorizontalStrut(10), hotelPanelGbc); // Add some horizontal space
+                hotelPanel.add(Box.createHorizontalStrut(10), hotelPanelGbc);
                 hotelPanelGbc.gridx++;
                 hotelPanel.add(viewPhotosButton, hotelPanelGbc);
                 hotelPanelGbc.gridx++;
                 hotelPanel.add(selectButton, hotelPanelGbc);
                 
-                // Add the hotel panel to the results panel
                 resultsPanel.add(hotelPanel, gbc);
                 gbc.gridy++;
             }
 
-            // Refresh the resultsPanel
             resultsPanel.revalidate();
             resultsPanel.repaint();
         });

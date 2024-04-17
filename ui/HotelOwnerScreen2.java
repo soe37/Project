@@ -15,7 +15,7 @@ public class HotelOwnerScreen2 extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(hotels.size() + 2, 1)); // Adjusted grid size to accommodate hotel list and the "Add Hotel" button
+        panel.setLayout(new GridLayout(hotels.size() + 2, 1));
 
         JLabel label = new JLabel("Welcome, " + user.getUsername());
         panel.add(label);
@@ -26,7 +26,7 @@ public class HotelOwnerScreen2 extends JFrame implements ActionListener {
             hotelPanel.add(hotelLabel, BorderLayout.CENTER);
 
             JButton selectButton = new JButton("Select");
-            selectButton.setActionCommand(Integer.toString(hotel.getId())); // Set hotel ID as action command
+            selectButton.setActionCommand(Integer.toString(hotel.getId()));
             selectButton.addActionListener(this);
             hotelPanel.add(selectButton, BorderLayout.EAST);
 
@@ -34,7 +34,7 @@ public class HotelOwnerScreen2 extends JFrame implements ActionListener {
         }
 
 
-        // Add "Add Hotel" button
+
         JButton addButton = new JButton("Add Hotel");
         addButton.addActionListener(this);
         panel.add(addButton);
@@ -47,7 +47,6 @@ public class HotelOwnerScreen2 extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Add Hotel")) {
-            // Open a dialog to enter hotel information
             JTextField nameField = new JTextField(10);
             JTextField locationField = new JTextField(10);
             JTextField ratingField = new JTextField(10);
@@ -66,14 +65,13 @@ public class HotelOwnerScreen2 extends JFrame implements ActionListener {
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
                 if (result == JOptionPane.OK_OPTION) {
-                    // Retrieve entered values
                     String name = nameField.getText();
                     String location = locationField.getText();
                     String ratingText = ratingField.getText();
 
                     if (name.isEmpty() || location.isEmpty() || ratingText.isEmpty()) {
                         JOptionPane.showMessageDialog(dialogPanel, "Please complete all fields", "Error", JOptionPane.ERROR_MESSAGE);
-                        continue; // Skip the rest of the loop and start over
+                        continue;
                     }
 
                     try {
@@ -83,22 +81,21 @@ public class HotelOwnerScreen2 extends JFrame implements ActionListener {
                         }
                         User user = Main.getLoggedInUser();
                         int hotelOwnerId = user.getId();
-                        // Add the new hotel (you need to implement this logic)
+            
                         Main.hotelController.addHotel(name, location, rating, hotelOwnerId);
                         JOptionPane.showMessageDialog(null, "Successfully added!", "Success", JOptionPane.INFORMATION_MESSAGE);
                         break;
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Rating must be an integer between 1 and 5.", "Invalid Rating", JOptionPane.ERROR_MESSAGE);
-                        continue; // Skip the rest of the loop and start over
+                        continue;
                     }
                 }
             } while (result == JOptionPane.OK_OPTION);
 
         } else if (e.getSource() instanceof JButton) {
             JButton button = (JButton) e.getSource();
-            int hotelId = Integer.parseInt(button.getActionCommand()); // Get hotel ID from action command
+            int hotelId = Integer.parseInt(button.getActionCommand());
             
-            // Open HotelOwnerScreen with the selected hotel's ID as input
             new HotelOwnerScreen(hotelId);
         }
     }

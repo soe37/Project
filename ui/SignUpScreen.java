@@ -36,16 +36,32 @@ public class SignUpScreen extends JFrame {
         signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle sign-up logic here
                 String username = usernameField.getText();
                 String email = emailField.getText();
                 String password = new String(passwordField.getPassword());
 
 
+                if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                    JOptionPane.showMessageDialog(panel, "Please complete all fields", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+
+                String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+
+                if (!email.matches(emailRegex)) {
+                    JOptionPane.showMessageDialog(panel, "Please enter a valid email address", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (username.length() > 99 || email.length() > 99 || password.length() > 99) {
+                    JOptionPane.showMessageDialog(panel, "Please ensure that input fields do not exceed the maximum allowable length.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 boolean success = Main.userController.signUp(username, email, password);
 
                 if (success) {
-                    // For simplicity, just display the entered values
                     JOptionPane.showMessageDialog(SignUpScreen.this,
                             "Username: " + username + "\n" +
                             "Email: " + email + "\n" +

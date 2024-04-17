@@ -82,12 +82,10 @@ public class HotelInformationScreen extends JFrame {
     }
 
     private void changeName() {
-        // Implement logic to change the name
         String newName = JOptionPane.showInputDialog(null, "Enter new name:", "Change Name", JOptionPane.QUESTION_MESSAGE);
         
         if (newName != null) {
             if (!newName.isEmpty()) {
-                // Update the name in the database
                 Main.hotelController.updateName(hotelId, newName);
                 nameLabel.setText("Current Name: " + newName);
             } else {
@@ -97,12 +95,10 @@ public class HotelInformationScreen extends JFrame {
     }
 
     private void changeLocation() {
-        // Implement logic to change the location
         String newLocation = JOptionPane.showInputDialog(null, "Enter new location:", "Change Location", JOptionPane.QUESTION_MESSAGE);
         
         if (newLocation != null) {
             if (!newLocation.isEmpty()) {
-                // Update the location in the database
                 Main.hotelController.updateLocation(hotelId, newLocation);
                 locationLabel.setText("Current Location: " + newLocation);
             } else {
@@ -112,7 +108,6 @@ public class HotelInformationScreen extends JFrame {
     }
 
     private void changeRating() {
-        // Implement logic to change the rating
         String newRatingStr = JOptionPane.showInputDialog(null, "Enter new rating:", "Change Rating", JOptionPane.QUESTION_MESSAGE);
         
         if (newRatingStr != null) {
@@ -120,7 +115,6 @@ public class HotelInformationScreen extends JFrame {
                 try {
                     int newRating = Integer.parseInt(newRatingStr);
                     if (newRating >= 1 && newRating <= 5) {
-                        // Update the rating in the database
                         Main.hotelController.updateRating(hotelId, newRating);
                         ratingLabel.setText("Current Rating: " + newRating);
                     } else {

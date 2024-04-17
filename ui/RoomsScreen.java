@@ -1,4 +1,3 @@
-// CustomerScreen.java
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,7 +12,7 @@ public class RoomsScreen extends JFrame {
         List<RoomType> roomTypes = Main.roomTypeController.getRoomTypesByHotelId(hotelId);
 
         setTitle("Rooms Screen");
-        setSize(650, 300);
+        setSize(850, 300);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
@@ -25,20 +24,17 @@ public class RoomsScreen extends JFrame {
             gbc.gridy = 0;
             gbc.anchor = GridBagConstraints.WEST;
 
-            // Display room type name
             gbc.gridx = 0;
             JLabel roomTypeLabel = new JLabel("Room Type: " + roomType.getName());
             roomTypePanel.add(roomTypeLabel, gbc);
 
-            // Display capacity
             gbc.gridx = 1;
             gbc.insets = new Insets(0, 10, 0, 10); // Adjust spacing here
             JLabel capacityLabel = new JLabel("Capacity: " + roomType.getCapacity());
             roomTypePanel.add(capacityLabel, gbc);
 
-            // Display price per night
             gbc.gridx = 2;
-            JLabel priceLabel = new JLabel("Price per Night: " + roomType.getPricePerNight());
+            JLabel priceLabel = new JLabel("Price per night: " + roomType.getPricePerNight());
             roomTypePanel.add(priceLabel, gbc);
 
             List<Room> rooms = Main.roomController.getRoomsByRoomTypeId(roomType.getId());
@@ -58,6 +54,56 @@ public class RoomsScreen extends JFrame {
             });
 
             roomTypePanel.add(viewPhotosButton, gbc);
+
+
+            gbc.gridx = 5; 
+            JButton addRoomsButton = new JButton("Add rooms");
+            addRoomsButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+                    JTextField nrOfRoomsField = new JTextField(10);
+
+                    JPanel dialogPanel = new JPanel(new GridLayout(1, 2));
+                    dialogPanel.add(new JLabel("Number of rooms to add:"));
+                    dialogPanel.add(nrOfRoomsField);
+
+
+                    int result;
+                    do {
+                        result = JOptionPane.showConfirmDialog(null, dialogPanel, "",
+                                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+                        if (result == JOptionPane.OK_OPTION) {
+                            String nrOfRoomsText = nrOfRoomsField.getText();
+
+                            if (nrOfRoomsText.isEmpty()) {
+                                JOptionPane.showMessageDialog(dialogPanel, "Please complete all fields", "Error", JOptionPane.ERROR_MESSAGE);
+                                continue; // Skip the rest of the loop and start over
+                            }
+
+                            try {
+                                int nrOfRooms = Integer.parseInt(nrOfRoomsText);
+
+                                if (nrOfRooms < 1 || nrOfRooms > 1000) {
+                                    throw new NumberFormatException();
+                                }
+
+                                int roomTypeId = roomType.getId();
+                                Main.roomController.addRooms(roomTypeId, hotelId,nrOfRooms);
+                                JOptionPane.showMessageDialog(null, "Successfully added!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                                break;
+                            } catch (NumberFormatException ex) {
+                                JOptionPane.showMessageDialog(null, "Number of rooms must be an integer between 1 and 1000.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                                continue;
+                            }
+                        }
+                    } while (result == JOptionPane.OK_OPTION);
+
+                }
+            });
+
+            roomTypePanel.add(addRoomsButton, gbc);
 
             panel.add(roomTypePanel);
         }
@@ -86,14 +132,13 @@ public class RoomsScreen extends JFrame {
                             JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
                     if (result == JOptionPane.OK_OPTION) {
-                        // Retrieve entered values
                         String name = nameField.getText();
                         String capacityText = capacityField.getText();
                         String pricePerNightText = pricePerNightField.getText();
 
                         if (name.isEmpty() || capacityText.isEmpty() || pricePerNightText.isEmpty()) {
                             JOptionPane.showMessageDialog(dialogPanel, "Please complete all fields", "Error", JOptionPane.ERROR_MESSAGE);
-                            continue; // Skip the rest of the loop and start over
+                            continue;
                         }
 
                         try {
@@ -104,13 +149,12 @@ public class RoomsScreen extends JFrame {
                                 throw new NumberFormatException();
                             }
 
-                            // Add the new hotel (you need to implement this logic)
                             Main.roomTypeController.addRoomType(name, capacity, pricePerNight, hotelId);
                             JOptionPane.showMessageDialog(null, "Successfully added!", "Success", JOptionPane.INFORMATION_MESSAGE);
                             break;
                         } catch (NumberFormatException ex) {
                             JOptionPane.showMessageDialog(null, "Capacity must be an integer between 1 and 1000, and price per night must be an integer between 1 and 1,000,000,000.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                            continue; // Skip the rest of the loop and start over
+                            continue;
                         }
                     }
                 } while (result == JOptionPane.OK_OPTION);

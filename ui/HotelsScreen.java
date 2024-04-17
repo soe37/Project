@@ -1,4 +1,3 @@
-// CustomerScreen.java
 import javax.swing.*;
 
 public class HotelsScreen extends JFrame {

@@ -22,14 +22,14 @@ public class RoomDB {
                     int roomId = resultSet.getInt("id");
                     int hotelId = resultSet.getInt("hotelid");
                     int roomTypeId = resultSet.getInt("roomtypeid");
-                    // You need to define your Room constructor
+                    
                     return new Room(roomId, roomTypeId, hotelId);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle error appropriately
+            e.printStackTrace();
         }
-        return null; // Room not found
+        return null;
     }
 
     public List<Room> getRoomsByHotelId(int hotelId) {
@@ -41,12 +41,12 @@ public class RoomDB {
                 while (resultSet.next()) {
                     int roomId = resultSet.getInt("id");
                     int roomTypeId = resultSet.getInt("roomtypeid");
-                    // You need to define your Room constructor
+                    
                     roomsByHotelId.add(new Room(roomId, roomTypeId, hotelId));
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle error appropriately
+            e.printStackTrace();
         }
         return roomsByHotelId;
     }
@@ -60,12 +60,12 @@ public class RoomDB {
                 while (resultSet.next()) {
                     int roomId = resultSet.getInt("id");
                     int hotelId = resultSet.getInt("hotelid");
-                    // You need to define your Room constructor
+                    
                     roomsByRoomTypeId.add(new Room(roomId, roomTypeId, hotelId));
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle error appropriately
+            e.printStackTrace();
         }
         return roomsByRoomTypeId;
     }
@@ -74,7 +74,6 @@ public class RoomDB {
         List<Room> availableRooms = new ArrayList<>();
         List<Room> unavailableRooms = new ArrayList<>();
 
-        // Retrieve bookings for the specified hotel within the specified period
         String query = "SELECT roomid FROM bookings WHERE hotelid = ? AND checkoutdate > ? AND checkindate < ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, hotelId);
@@ -87,14 +86,12 @@ public class RoomDB {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle error appropriately
+            e.printStackTrace();
         }
 
-        // Retrieve all rooms for the specified hotel
         List<Room> roomsByHotelId = getRoomsByHotelId(hotelId);
 
 
-        // Add rooms that are not marked as unavailable to the list of available rooms
         for (Room room : roomsByHotelId) {
             if (!unavailableRooms.contains(room)) {
                 availableRooms.add(room);
@@ -105,16 +102,17 @@ public class RoomDB {
     }
 
 
-    public void saveRoom(int roomTypeId, int hotelId) {
+    public void saveRooms(int roomTypeId, int hotelId, int numberOfRooms) {
         String query = "INSERT INTO rooms (roomtypeid, hotelid) VALUES (?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, roomTypeId);
-            statement.setInt(2, hotelId);
-            statement.executeUpdate();
+            for (int i = 0; i < numberOfRooms; i++) {
+                statement.setInt(1, roomTypeId);
+                statement.setInt(2, hotelId);
+                statement.executeUpdate();
+            }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle error appropriately
+            e.printStackTrace();
         }
     }
-
-    // You can add more methods here to filter rooms based on various criteria
+    
 }

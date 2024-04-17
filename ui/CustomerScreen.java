@@ -33,11 +33,8 @@ public class CustomerScreen extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == findRoomButton) {
-            // Open HotelSearchScreen when "Find room" button is clicked
             new HotelSearchScreen();
         } else if (e.getSource() == bookingHistoryButton) {
-            // Open BookingHistoryScreen when "Booking history" button is clicked
-
             User user = Main.getLoggedInUser();
             int userId = user.getId();
 

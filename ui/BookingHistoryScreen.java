@@ -1,4 +1,3 @@
-// CustomerScreen.java
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -6,7 +5,7 @@ import java.util.List;
 public class BookingHistoryScreen extends JFrame {
     public BookingHistoryScreen(int userId) {
         setTitle("BookingHistory Screen");
-        setSize(600, 400); // Adjusted size for better visibility
+        setSize(600, 400);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel(new BorderLayout());
@@ -26,12 +25,13 @@ public class BookingHistoryScreen extends JFrame {
                 Room room = Main.roomController.getRoomById(booking.getRoomId());
                 int roomTypeId = room.getRoomTypeId();
                 RoomType roomType = Main.roomTypeController.getRoomTypeById(roomTypeId);
+                Hotel hotel = Main.hotelController.getHotelById(booking.getHotelId());
 
-                sb.append("Booking ID: ").append(booking.getId()).append("\n");
-                sb.append("Room Type: ").append(roomType.getName()).append("\n");
+                sb.append("Hotel: ").append(hotel.getName()).append("\n");
+                sb.append("Room: ").append(roomType.getName()).append("\n");
                 sb.append("Check In Date: ").append(booking.getCheckInDate()).append("\n");
                 sb.append("Check Out Date: ").append(booking.getCheckOutDate()).append("\n");
-                sb.append("Total Price: ").append(booking.getTotalPrice()).append("\n\n");
+                sb.append("Total Price: $").append(booking.getTotalPrice()).append("\n\n");
             }
             textArea.setText(sb.toString());
         }

@@ -7,41 +7,67 @@ public class UserController {
         this.userDB = userDB;
     }
 
+
+    // Logs in a user with the provided username and password.
+    //
+    // #1
+    // Retrieves a list of all users from the database.
+    //
+    // #2  
+    // Iterates through each user in the list.
+    //
+    // #3
+    // Checks if the username and password of the current user 
+    // match the provided username and password.
+    //
+    // #4
+    // If no user with matching credentials is found, prints a failure message and returns null.
     public User logIn(String username, String password) {
+        // 1
         List<User> users = userDB.getUsers();
+        
+        // 2
         for (User user : users) {
+            // 3
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                System.out.println("User logged in successfully: " + user.getUsername());
+                // 4
                 Main.setLoggedInUser(user);
-                return user; // User found and logged in successfully
+                return user;
             }
         }
-        System.out.println("Failed to log in. Invalid username or password.");
-        return null; // User not found or invalid credentials
+
+        // 4
+        return null;
     }
 
 
+    // Signs up a new user with the provided username, email, and password.
+    // #1
+    // Checks if any of the input parameters (username, email, password) is null.
+    // If any parameter is null, prints a failure message and returns false.
+    //
+    // #2
+    // Checks if the provided username or email is already taken by another user.
+    // If either the username or email is taken, prints a failure message and returns false.
+    //
+    // #3
+    // If the username and email are available, saves the new user to the database with the provided details.
+    //
     public boolean signUp(String username, String email, String password) {
-        // Validate input parameters
+        
+        // 1
         if (username == null || email == null || password == null) {
-            // Invalid input, return false
-            System.out.println("Failed to sign up");
-
             return false;
         }
         
-        // Check if the username or email is already taken
-        if (userDB.isUsernameTaken(username) || userDB.isEmailTaken(email)) {
-            // Username or email is already taken, return false
-            System.out.println("Failed to sign up");
 
+        // 2
+        if (userDB.isUsernameTaken(username) || userDB.isEmailTaken(email)) {
             return false;
         }
 
-        // Save the new user to the data storage
+        // 3
         userDB.saveUser(username, email, password);
-
-        System.out.println("Sign up success");
 
         return true;
     }

@@ -13,14 +13,10 @@ public class WebmasterScreen extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 1));
+        panel.setLayout(new GridLayout(2, 1));
 
         JLabel label = new JLabel("Welcome, "+Main.getLoggedInUser().getUsername());
         panel.add(label);
-
-        hotelsButton = new JButton("Hotels");
-        hotelsButton.addActionListener(this);
-        panel.add(hotelsButton);
 
         usersButton = new JButton("Users");
         usersButton.addActionListener(this);
@@ -32,11 +28,7 @@ public class WebmasterScreen extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == hotelsButton) {
-            // Open HotelSearchScreen when "Find room" button is clicked
-            new HotelsScreen();
-        } else if (e.getSource() == usersButton) {
-            // Open BookingHistoryScreen when "Booking history" button is clicked
+        if (e.getSource() == usersButton) {
             new UsersScreen();
         }
     }

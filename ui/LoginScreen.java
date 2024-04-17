@@ -6,7 +6,7 @@ public class LoginScreen extends JFrame implements ActionListener {
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginButton;
-    private JButton signUpButton; // New button for sign up
+    private JButton signUpButton;
 
     public LoginScreen() {
         setTitle("Login");
@@ -31,7 +31,7 @@ public class LoginScreen extends JFrame implements ActionListener {
         panel.add(loginButton);
 
         signUpButton = new JButton("Create new account");
-        signUpButton.addActionListener(this); // Register ActionListener for sign up button
+        signUpButton.addActionListener(this);
         panel.add(signUpButton);
 
         add(panel);
@@ -44,6 +44,15 @@ public class LoginScreen extends JFrame implements ActionListener {
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
             
+            if (username.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please complete all fields", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (username.length() > 99 || password.length() > 99) {
+                JOptionPane.showMessageDialog(this, "Please ensure that input fields do not exceed the maximum allowable length.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             User loggedInUser = Main.userController.logIn(username, password);
 
@@ -52,9 +61,7 @@ public class LoginScreen extends JFrame implements ActionListener {
             if (loggedInUser != null)
                 userType = loggedInUser.getType();
 
-            // Here you can add your authentication logic.
-            // For simplicity, let's just check if username contains "Customer", "HotelOwner", or "Webmaster".
-            // You can replace this logic with actual authentication.
+
             if (userType == 0) {
                 new CustomerScreen();
             } else if (userType == 1) {
@@ -65,7 +72,6 @@ public class LoginScreen extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Invalid username or password.");
             }
         } else if (e.getSource() == signUpButton) {
-            // Open sign-up screen when sign up button is clicked
             new SignUpScreen();
         }
     }

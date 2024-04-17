@@ -25,7 +25,7 @@ public class BookingScreen extends JFrame {
         JLabel nightsLabel = new JLabel("Number of nights: " + numberOfNights);
         panel.add(nightsLabel);
 
-        JLabel totalPriceLabel = new JLabel("Total price: " + totalPrice);
+        JLabel totalPriceLabel = new JLabel("Total price: $" + totalPrice);
         panel.add(totalPriceLabel);
 
         JButton bookButton = new JButton("Book room");

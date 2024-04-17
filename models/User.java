@@ -6,7 +6,7 @@ public class User {
     private String email;
     private String password;
     private int type;
-    // You can add more fields as needed
+
 
     @Override
     public boolean equals(Object o) {
@@ -21,7 +21,7 @@ public class User {
         return Objects.hash(id);
     }
 
-    // Constructor
+
     public User(int id, String username, String email, String password, int type) {
         this.id = id;
         this.username = username;
@@ -30,7 +30,7 @@ public class User {
         this.type = type;
     }
 
-    // Getters and setters
+
     public int getId() {
         return id;
     }

@@ -5,7 +5,7 @@ public class Booking {
     private int id;
     private int userId;
     private int roomId;
-    private int hotelId; // New attribute
+    private int hotelId;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private int totalPrice;
@@ -28,13 +28,13 @@ public class Booking {
         this.id = id;
         this.userId = userId;
         this.roomId = roomId;
-        this.hotelId = hotelId; // Initialize hotelId
+        this.hotelId = hotelId;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.totalPrice = totalPrice;
     }
 
-    // Getter and setter methods for all attributes
+
 
     public int getId() {
         return id;

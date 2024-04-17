@@ -13,6 +13,11 @@ public class PhotoUploaderScreen extends JFrame implements ActionListener {
         super("Photo Uploader");
         this.directory = directory;
 
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+
         addPhotoButton = new JButton("Add Photo");
         addPhotoButton.addActionListener(this);
 

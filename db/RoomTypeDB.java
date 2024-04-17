@@ -103,7 +103,7 @@ public class RoomTypeDB {
             statement.setInt(4, hotelId);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle error appropriately
+            e.printStackTrace();
         }
     }
 }

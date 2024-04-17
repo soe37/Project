@@ -29,7 +29,7 @@ public class RoomSearchScreen extends JFrame {
 
     public RoomSearchScreen(int hotelId) {
         setTitle("Room Search Screen");
-        setSize(600, 400); // Increased size for better visibility
+        setSize(600, 400);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
@@ -51,7 +51,7 @@ public class RoomSearchScreen extends JFrame {
         JLabel checkInLabel = new JLabel("Check In Date:");
         JLabel checkOutLabel = new JLabel("Check Out Date:");
         JLabel numberOfPersonsLabel = new JLabel("Number of Persons (Max " + highestCapacity + "):");
-        JLabel maxPriceLabel = new JLabel("Maximum Price per Night (Max " + highestPrice + "):" );
+        JLabel maxPriceLabel = new JLabel("Maximum Price per Night (Max $" + highestPrice + "):" );
         checkInDateChooser = new JDateChooser();
         checkOutDateChooser = new JDateChooser();
 
@@ -65,15 +65,15 @@ public class RoomSearchScreen extends JFrame {
 
         searchPanel.add(checkInLabel, gbc);
         gbc.gridx++;
-        gbc.fill = GridBagConstraints.HORIZONTAL; // Set the fill constraint to make components expand horizontally
-        gbc.weightx = 1.0; // Make components fill the available horizontal space
+        gbc.fill = GridBagConstraints.HORIZONTAL; 
+        gbc.weightx = 1.0;
         searchPanel.add(checkInDateChooser, gbc);
         gbc.gridx = 0;
         gbc.gridy++;
         searchPanel.add(checkOutLabel, gbc);
         gbc.gridx++;
-        gbc.fill = GridBagConstraints.HORIZONTAL; // Set the fill constraint to make components expand horizontally
-        gbc.weightx = 1.0; // Make components fill the available horizontal space
+        gbc.fill = GridBagConstraints.HORIZONTAL; 
+        gbc.weightx = 1.0; 
         searchPanel.add(checkOutDateChooser, gbc);
         gbc.gridx = 0;
         gbc.gridy++;
@@ -108,7 +108,7 @@ public class RoomSearchScreen extends JFrame {
             return;
         }
         
-        // Apply document filter to restrict input to integers and enforce maximum value
+        
         ((AbstractDocument) maxPriceField.getDocument()).setDocumentFilter(new DocumentFilter() {
             @Override
             public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
@@ -140,16 +140,13 @@ public class RoomSearchScreen extends JFrame {
             }
         });
         
-        // Set the minimum selectable date to today's date
+
         checkInDateChooser.setMinSelectableDate(new Date());
-        // Disable the check-out date chooser initially
         checkOutDateChooser.setEnabled(false);
 
-        // Add a property change listener to the check-in date chooser
         checkInDateChooser.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                // When the check-in date changes, set the minimum selectable date for the check-out date chooser to the selected check-in date
                 Date checkInDate = checkInDateChooser.getDate();
                 if (checkInDate != null) {
                     Calendar calendar = Calendar.getInstance();
@@ -157,23 +154,19 @@ public class RoomSearchScreen extends JFrame {
                     calendar.add(Calendar.DATE, 1);
                     Date minSelectableDate = calendar.getTime();
                     checkOutDateChooser.setMinSelectableDate(minSelectableDate);
-                    // Enable the check-out date chooser
                     checkOutDateChooser.setEnabled(true);
 
                     checkOutDateChooser.getDateEditor().setEnabled(false);
                 } else {
-                    // If check-in date is cleared, disable the check-out date chooser again
                     checkOutDateChooser.setEnabled(false);
                 }
             }
         });
 
 
-        // Add a property change listener to the check-out date chooser
         checkOutDateChooser.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                // When the check-out date changes, set the maximum selectable date for the check-in date chooser to the selected check-out date
                 Date checkOutDate = checkOutDateChooser.getDate();
                 if (checkOutDate != null) {
                     Calendar calendar = Calendar.getInstance();
@@ -189,7 +182,6 @@ public class RoomSearchScreen extends JFrame {
 
         searchButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Retrieve selected dates
                 Date checkInDate = checkInDateChooser.getDate();
                 Date checkOutDate = checkOutDateChooser.getDate();
                 int numberOfPersons = (int) numberOfPersonsSpinner.getValue();
@@ -200,7 +192,7 @@ public class RoomSearchScreen extends JFrame {
                 
                 if (checkInDate == null || checkOutDate == null || maxPriceText.isEmpty()) {
                     JOptionPane.showMessageDialog(panel, "Please complete all fields", "Error", JOptionPane.ERROR_MESSAGE);
-                    return; // Exit the method
+                    return;
                 }
 
                 maxPrice = Integer.parseInt(maxPriceText);
@@ -214,18 +206,16 @@ public class RoomSearchScreen extends JFrame {
 
                 resultsPanel.removeAll();
 
-                // Add the results to the resultsPanel
                 GridBagConstraints gbc = new GridBagConstraints();
                 gbc.gridx = 0;
                 gbc.gridy = 0;
                 gbc.insets = new Insets(5, 5, 5, 5);
                 for (RoomType roomType : roomTypeSearchResult) {
-                    String roomTypeInfo = String.format("%s, Capacity: %d, Price per night: %d", roomType.getName(), roomType.getCapacity(), roomType.getPricePerNight());
+                    String roomTypeInfo = String.format("%s, Capacity: %d, Price per night: $%d", roomType.getName(), roomType.getCapacity(), roomType.getPricePerNight());
                     JLabel label = new JLabel(roomTypeInfo);
 
                     JButton viewPhotosButton = new JButton("View photos");
                     viewPhotosButton.addActionListener(event -> {
-                        // Handle selection logic here
                         ImageGalleryScreen galleryScreen = new ImageGalleryScreen();
                         galleryScreen.setVisible(true);
 
@@ -236,13 +226,10 @@ public class RoomSearchScreen extends JFrame {
 
                     JButton selectButton = new JButton("Select");
                     selectButton.addActionListener(event -> {
-                        // Handle selection logic here
 
                         new BookingScreen(roomType,checkInLocalDate,checkOutLocalDate);
-                        System.out.println("Room type selected: " + roomType.getName());
                     });
                     
-                    // Create a new panel for each hotel
                     JPanel roomTypePanel = new JPanel(new GridBagLayout());
                     GridBagConstraints roomTypePanelGbc = new GridBagConstraints();
                     roomTypePanelGbc.gridx = 0;
@@ -255,12 +242,10 @@ public class RoomSearchScreen extends JFrame {
                     roomTypePanelGbc.gridx++;
                     roomTypePanel.add(selectButton, roomTypePanelGbc);
                     
-                    // Add the hotel panel to the results panel
                     resultsPanel.add(roomTypePanel, gbc);
                     gbc.gridy++;
                 }
 
-                // Refresh the resultsPanel
                 resultsPanel.revalidate();
                 resultsPanel.repaint();
             }
